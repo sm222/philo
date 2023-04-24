@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/23 15:36:34 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:22:13 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,31 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_philo
+typedef struct s_data
 {
 	pthread_mutex_t	lock;
 	int				i;
+
+}	t_data;
+
+typedef struct s_philo
+{
+	char	*name;
+	t_data	*ptr;
+	int		lock;
+	int		time;
 }	t_philo;
 
+# define N0 "William"
+# define N1 "Antoine"
+# define N2 "Raphael"
+# define N3 "Brian"
+# define N4 "Mathieu"
+# define N5 "Zachary"
+# define N6 "Zackary"
 
-#endif // PHILO_H
+typedef enum e_name{
+	Antoine,
+}	t_name;
+
+#endif
