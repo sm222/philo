@@ -36,7 +36,7 @@ all: $(NAME)
 	@cat .logo.txt
 	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS)  -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) lib_ft/libft.a -o $(NAME)
 
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $(SRCS)

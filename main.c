@@ -6,11 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/24 17:48:47 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:49:24 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h> //
+#include <string.h> //
 
 unsigned long long	get_time(void)
 {
@@ -29,25 +31,26 @@ unsigned long long	get_time(void)
 char	*give_name(void)
 {
 	static int	i = 0;
+	static int	cpy = 0;
 
 	if (i >= 6)
 		i = 0;
 	else
 		i++;
 	if (i == 0)
-		return (N0);
+		return (ft_combine("%s:%d", N0, cpy));
 	if (i == 1)
-		return (N1);
+		return (ft_combine("%s:%d", N1, cpy));
 	if (i == 2)
-		return (N2);
+		return (ft_combine("%s:%d", N2, cpy));
 	if (i == 3)
-		return (N3);
+		return (ft_combine("%s:%d", N3, cpy));
 	if (i == 4)
-		return (N4);
+		return (ft_combine("%s:%d", N4, cpy));
 	if (i == 5)
-		return (N5);
+		return (ft_combine("%s:%d", N5, cpy));
 	if (i == 6)
-		return (N6);
+		return (ft_combine("%s:%d", N6, cpy++));
 	return (NULL);
 }
 
@@ -59,7 +62,7 @@ void	*work(void *in)
 	while (1)
 	{
 		pthread_mutex_lock(&data->ptr->lock);
-		if (data->ptr->i >= 50000)
+		if (data->ptr->i >= data->ptr->end)
 		{
 			printf("\x1B[32m%10s %d\n\x1B[37m", data->name, data->time);
 			pthread_mutex_unlock(&data->ptr->lock);
@@ -80,12 +83,13 @@ void	*work(void *in)
 int	main(void)
 {
 	int				save;
-	save = 7;
-	pthread_t		t1[save];
-	t_philo			ph[save];
+	pthread_t		t1[200];
+	t_philo			ph[200];
 	t_data			info;
 	int				size;
 
+	save = 100;
+	info.end = save * 2000;
 	info.i = 0;
 	get_time();
 	size = save;
@@ -101,6 +105,10 @@ int	main(void)
 	while (size--)
 		pthread_join(t1[size], NULL);
 	pthread_mutex_destroy(&info.lock);
-	printf("end at : %llu\n", get_time() / 1000);
+	unsigned long long time = get_time();
+	if (time / 1000 > 60)
+		printf("end at minute: %llu:%llu\n", time / 1000 / 60, time);
+	else
+		printf("end at segond : %llu\n", time / 1000);
 	return (0);
 }

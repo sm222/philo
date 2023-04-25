@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/24 17:22:13 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/25 15:01:37 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+#include "lib_ft/libft.h" 
+
 typedef struct s_data
 {
 	pthread_mutex_t	lock;
 	int				i;
+	int				end;
 
 }	t_data;
 
