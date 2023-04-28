@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/25 15:49:24 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:58:03 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*give_name(void)
 	static int	i = 0;
 	static int	cpy = 0;
 
-	if (i >= 6)
+	if (i >= 7)
 		i = 0;
 	else
 		i++;
@@ -50,8 +50,15 @@ char	*give_name(void)
 	if (i == 5)
 		return (ft_combine("%s:%d", N5, cpy));
 	if (i == 6)
+		return (ft_combine("%s:%d", N6, cpy));
+	if (i == 7)
 		return (ft_combine("%s:%d", N6, cpy++));
 	return (NULL);
+}
+
+void	print_info(char *s, int id)
+{
+	printf("%6llu %d %s\n", get_time(), id, s);
 }
 
 void	*work(void *in)
@@ -59,25 +66,40 @@ void	*work(void *in)
 	t_philo	*data;
 
 	data = (t_philo *)in;
-	while (1)
+	if (data->id % 2 == 0)
+		usleep(100);
+	while (data->meal < data->ptr->meal_need)
 	{
-		pthread_mutex_lock(&data->ptr->lock);
-		if (data->ptr->i >= data->ptr->end)
-		{
-			printf("\x1B[32m%10s %d\n\x1B[37m", data->name, data->time);
-			pthread_mutex_unlock(&data->ptr->lock);
-			return (NULL);
-		}
-		else
-		{
-			data->ptr->i++;
-			usleep(250);
-			data->time++;
-			printf("%llu %s %d\n", get_time(), data->name, data->ptr->i);
-		}
-		pthread_mutex_unlock(&data->ptr->lock);
+		usleep(100);
+		pthread_mutex_lock(&data->rigth.lock);
+		pthread_mutex_lock(&data->left->lock);
+		print_info(TAKE, data->id);
+		data->meal++;
+		pthread_mutex_unlock(&data->rigth.lock);
+		pthread_mutex_unlock(&data->left->lock);
+		usleep(1000);
 	}
 	return (in);
+}
+
+void	lock_and_join(t_philo *philo, int size)
+{
+	int		i;
+	t_philo	*tmp;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		tmp = &philo[i];
+		printf("%d %d\n", i, i + 1);
+		(philo[i]).left = &(philo[i + 1]).rigth;
+		pthread_mutex_lock(&tmp->left->lock);
+		i++;
+	}
+	(philo[i]).left = &(philo[0]).rigth;
+	tmp = &philo[i];
+	pthread_mutex_lock(&tmp->left->lock);
+	printf("%d %d\n", i, 0);
 }
 
 int	main(void)
@@ -88,27 +110,48 @@ int	main(void)
 	t_data			info;
 	int				size;
 
-	save = 100;
-	info.end = save * 2000;
+	save = 4;
+	info.meal_need = 100;
+	info.end = save * 200;
 	info.i = 0;
 	get_time();
 	size = save;
 	pthread_mutex_init(&info.lock, NULL);
 	while (size--)
 	{
-		ph[size].time = 0;
-		ph[size].name = give_name();
+		ft_bzero(&ph[size], sizeof(t_philo));
 		ph[size].ptr = &info;
-		pthread_create(&t1[size], NULL, &work, &ph[size]);
+		ph[size].name = give_name();
+		ph[size].left = NULL;
+		ph[size].id = size + 1;
+		pthread_mutex_init(&ph[size].rigth.lock, NULL);
 	}
+	lock_and_join(ph, save);
 	size = save;
 	while (size--)
+		pthread_create(&t1[size], NULL, &work, &ph[size]);
+	size = 0;
+	while (size < save)
+	{
+		printf("size:%d\n", size);
+		if (size % 2 == 0)
+		{			
+			pthread_mutex_unlock(&ph[size].left->lock);
+			pthread_mutex_unlock(&ph[size].rigth.lock);
+		}
+		size++;
+	}
+	size = save;
+	printf("done\n");
+	while (size--)
 		pthread_join(t1[size], NULL);
+	/*
 	pthread_mutex_destroy(&info.lock);
 	unsigned long long time = get_time();
 	if (time / 1000 > 60)
 		printf("end at minute: %llu:%llu\n", time / 1000 / 60, time);
 	else
 		printf("end at segond : %llu\n", time / 1000);
+	*/
 	return (0);
 }
