@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/28 17:58:03 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:04:55 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ unsigned long long	get_time(void)
 	new = (now.tv_sec * 1000 - start.tv_sec * 1000) + \
 	(now.tv_usec / 1000 - start.tv_usec / 1000);
 	return (new);
+}
+
+void	sleep_time(unsigned long long time)
+{
+	usleep(time);
 }
 
 char	*give_name(void)
@@ -75,6 +80,10 @@ void	*work(void *in)
 		pthread_mutex_lock(&data->left->lock);
 		print_info(TAKE, data->id);
 		data->meal++;
+		usleep(5000);
+		print_info(EAT, data->id);
+		usleep(10000);
+		print_info(SLEEP, data->id);
 		pthread_mutex_unlock(&data->rigth.lock);
 		pthread_mutex_unlock(&data->left->lock);
 		usleep(1000);
@@ -104,13 +113,13 @@ void	lock_and_join(t_philo *philo, int size)
 
 int	main(void)
 {
-	int				save;
-	pthread_t		t1[200];
-	t_philo			ph[200];
-	t_data			info;
-	int				size;
+	int			save;
+	pthread_t	t1[200];
+	t_philo		ph[200];
+	t_data		info;
+	int			size;
 
-	save = 4;
+	save = 50;
 	info.meal_need = 100;
 	info.end = save * 200;
 	info.i = 0;

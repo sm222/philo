@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/28 17:53:44 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:04:26 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define EAT  "is eating🍝"
 # define TAKE "took fork🍴"
+# define SLEEP "is sleeping 💤"
 
 typedef struct s_data
 {
