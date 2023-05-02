@@ -12,7 +12,7 @@ NAME	=	philo
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -pthread
+CFLAGS	=	-Wall -Werror -Wextra -g -pthread -fsanitize=thread
 RM		=	rm -f
 
 #-fsanitize=thread
@@ -24,7 +24,8 @@ RM		=	rm -f
 # --track-fds=yes
 
 # Sources are all .c files
-SRCS	=	main.c
+SRCS	=	utilse.c\
+			main.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -36,7 +37,7 @@ all: $(NAME)
 	@cat .logo.txt
 	@echo $(CYN) "\n\n			correction is made by $(USER)\n\n " $(RESET)
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) lib_ft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $(SRCS)

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   utilse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 17:10:45 by anboisve          #+#    #+#             */
-/*   Updated: 2022/12/04 13:29:31 by anboisve         ###   ########.fr       */
+/*   Created: 2023/05/02 15:47:21 by anboisve          #+#    #+#             */
+/*   Updated: 2023/05/02 15:50:27 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
-int	ft_putendl_fd(char *s, int fd)
+void	ft_bzero(void *ptr, size_t size)
 {
-	size_t	i;
-
-	i = ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-	return (i + 1);
+	while (size--)
+		((char *)ptr)[size] = 0;
 }

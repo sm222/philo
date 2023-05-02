@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/04/30 15:04:26 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:59:47 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-#include "lib_ft/libft.h"
-
 # define EAT  "is eating🍝"
 # define TAKE "took fork🍴"
 # define SLEEP "is sleeping 💤"
+# define THINK "is thinking 🤔"
+# define DIE "is dead 💀"
+# define T_TIME unsigned long long
+
+void	ft_bzero(void *ptr, size_t size);
 
 typedef struct s_data
 {
-	pthread_mutex_t	lock;
-	int				i;
-	int				end;
-	int				meal_need;
-	int				is_dead;
+	pthread_mutex_t		lock;
+	int					i;
+	int					meal_need;
+	int					is_dead;
+	T_TIME				sleep;
+	T_TIME				eat;
+	T_TIME				thinks;
+	T_TIME				ttd;
 
 }	t_data;
 
@@ -44,25 +50,12 @@ typedef struct s_philo
 {
 	int		id;
 	int		meal;
-	char	*name;
 	t_data	*ptr;
 	int		lock;
 	int		time;
 	t_fork	*left;
 	t_fork	rigth;
+	T_TIME	last_meal;
 }	t_philo;
-
-# define N0 "William"
-# define N1 "Antoine"
-# define N2 "Raphael"
-# define N3 "Brian"
-# define N4 "Mathieu"
-# define N5 "Zachary"
-# define N6 "Zackary"
-# define N7 "Pascal"
-
-typedef enum e_name{
-	Antoine,
-}	t_name;
 
 #endif
