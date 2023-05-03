@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/02 18:02:46 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:50:20 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ t_philo *data, T_TIME time, char *s)
 {
 	T_TIME	tmp;
 
-	if (time > 0)
+	tmp = get_time();
+	if (data->last_meal + time > tmp + data->ptr->ttd)
 	{
-		tmp = get_time();
-		if (data->last_meal + time > tmp + data->ptr->ttd)
-		{
-			data->ptr->is_dead++;
-			f(DIE, data->id);
-			return ;
-		}
+		data->ptr->is_dead++;
+		f(DIE, data->id);
+		return ;
 	}
-	usleep(time);
-	f(s, data->id);
+	else
+	{
+		usleep(time);
+		f(s, data->id);
+	}
 }
 
 void	print_info(char *s, int id)
@@ -67,9 +67,9 @@ void	*work(void *in)
 		do_something(&print_info, data, 0, TAKE);
 		pthread_mutex_lock(&data->left->lock);
 		do_something(&print_info, data, 0, TAKE);
-		data->meal++;
-		data->last_meal = get_time();
 		do_something(&print_info, data, data->ptr->eat, EAT);
+		data->last_meal = get_time();
+		data->meal++;
 		do_something(&print_info, data, data->ptr->thinks, THINK);
 		pthread_mutex_unlock(&data->rigth.lock);
 		pthread_mutex_unlock(&data->left->lock);
@@ -97,31 +97,39 @@ void	lock_and_join(t_philo *philo, int size)
 	pthread_mutex_lock(&tmp->left->lock);
 }
 
+void	set_data(t_data *data, t_philo **ph, int size)
+{
+	data->eat = 200;
+	data->sleep = 200;
+	data->thinks = 4100;
+	data->ttd = 4000;
+	data->meal_need = 8;
+	data->i = 0;
+	pthread_mutex_init(&data->lock, NULL);
+	while (size--)
+	{
+		(*ph)[size].ptr = data;
+		
+		printf("ici\n");
+		(ph)[size]->left = NULL;
+		(ph[size])->id = size + 1;
+		pthread_mutex_init(&(ph[size])->rigth.lock, NULL);
+	}
+}
+
 int	main(void)
 {
 	int			save;
 	pthread_t	t1[200];
-	t_philo		ph[200];
+	t_philo		*ph;
 	t_data		info;
 	int			size;
 
-	save = 4;
-	info.meal_need = 8;
-	info.i = 0;
+	save = 6;
+	ph = ft_calloc(save, sizeof(t_philo));
 	size = save;
-	info.eat = 200;
-	info.sleep = 200;
-	info.thinks = 410;
-	info.ttd = 7000;
-	pthread_mutex_init(&info.lock, NULL);
-	while (size--)
-	{
-		ft_bzero(&ph[size], sizeof(t_philo));
-		ph[size].ptr = &info;
-		ph[size].left = NULL;
-		ph[size].id = size + 1;
-		pthread_mutex_init(&ph[size].rigth.lock, NULL);
-	}
+	re_ptr(&info);
+	set_data(&info, &ph, save);
 	lock_and_join(ph, save);
 	size = save;
 	while (size--)
@@ -129,9 +137,8 @@ int	main(void)
 	size = 0;
 	while (size < save)
 	{
-		printf("size:%d\n", size);
 		if (size % 2 == 0)
-		{			
+		{
 			pthread_mutex_unlock(&ph[size].left->lock);
 			pthread_mutex_unlock(&ph[size].rigth.lock);
 		}

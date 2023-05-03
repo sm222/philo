@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/02 17:59:47 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:58:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -25,7 +26,9 @@
 # define DIE "is dead 💀"
 # define T_TIME unsigned long long
 
+void	*re_ptr(void *ptr);
 void	ft_bzero(void *ptr, size_t size);
+void	*ft_calloc(size_t count, size_t size);
 
 typedef struct s_data
 {
