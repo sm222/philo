@@ -6,46 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/03 14:50:20 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/07 09:29:47 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h> //
 #include <string.h> //
-
-T_TIME	get_time(void)
-{
-	static struct timeval	start = {-1, -1};
-	struct timeval			now;
-	T_TIME					new;
-
-	if (start.tv_sec == -1 && start.tv_usec == -1)
-		gettimeofday(&start, NULL);
-	gettimeofday(&now, NULL);
-	new = (now.tv_sec * 1000 - start.tv_sec * 1000) + \
-	(now.tv_usec / 1000 - start.tv_usec / 1000);
-	return (new);
-}
-
-void	do_something(void f(char *, int), \
-t_philo *data, T_TIME time, char *s)
-{
-	T_TIME	tmp;
-
-	tmp = get_time();
-	if (data->last_meal + time > tmp + data->ptr->ttd)
-	{
-		data->ptr->is_dead++;
-		f(DIE, data->id);
-		return ;
-	}
-	else
-	{
-		usleep(time);
-		f(s, data->id);
-	}
-}
 
 void	print_info(char *s, int id)
 {
@@ -109,7 +76,6 @@ void	set_data(t_data *data, t_philo **ph, int size)
 	while (size--)
 	{
 		(*ph)[size].ptr = data;
-		
 		printf("ici\n");
 		(ph)[size]->left = NULL;
 		(ph[size])->id = size + 1;
