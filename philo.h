@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/07 09:50:37 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:46:16 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 typedef unsigned long long	t_time;
 
+//sizeof(t_philo)
+
+t_time	get_time(void);
+void	*task(void *in);
 void	*re_ptr(void *ptr);
 void	*ft_free(void *ptr);
 void	ft_bzero(void *ptr, size_t size);

@@ -25,7 +25,8 @@ RM		=	rm -f
 
 # Sources are all .c files
 SRCS	=	utilse.c\
-			philo.c
+			philo.c\
+			task.c
 
 OBJS	=	$(SRCS:.c=.o)
 

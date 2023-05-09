@@ -6,18 +6,13 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/07 09:29:47 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:27:43 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h> //
 #include <string.h> //
-
-void	print_info(char *s, int id)
-{
-	printf("%6llu %3d %7s\n", get_time(), id, s);
-}
 
 void	*work(void *in)
 {

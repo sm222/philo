@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:47:21 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/07 09:50:18 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:58:38 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	*ft_calloc(size_t count, size_t size)
 
 	new = NULL;
 	new = malloc(count * size);
+	if (!new)
+		return (NULL);
 	ft_bzero(new, count * size);
 	return (new);
 }
