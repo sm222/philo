@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/09 17:58:01 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:43:40 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	link_ph(t_philo **ph, int size)
 	tmp = ph;
 	while (i < size - 1)
 	{
-		pthread_mutex_unlock(&tmp[i]->rigth->lock);
+		pthread_mutex_init(&tmp[i]->rigth->lock, NULL);
 		tmp[i + 1]->left = tmp[i]->rigth;
+		pthread_mutex_lock(&tmp[i]->rigth->lock);
 		i++;
 	}
-	pthread_mutex_unlock(&tmp[i]->rigth->lock);
+	pthread_mutex_init(&tmp[i]->rigth->lock, NULL);
+	pthread_mutex_lock(&tmp[i]->rigth->lock);
 	tmp[0]->left = tmp[i]->rigth;
 }
 
@@ -71,6 +73,19 @@ void	free_ph(t_philo **ph, int size)
 	ft_free(ph);
 }
 
+void	start_ph(pthread_t thread[200], t_data *data)
+{
+	int	i;
+
+	i = 0;
+	get_time();
+	while (i < data->nb_of_ph)
+	{
+		pthread_join(thread[i], NULL);
+		i++;
+	}
+}
+
 int	main(void)
 {
 	pthread_t	thread[200];
@@ -78,8 +93,7 @@ int	main(void)
 	t_data		data;
 	int			i;
 
-	data.nb_of_ph = 2;
-	data.meal_need = 5;
+	start_data(&data);
 	if (make_ph(&ph, &data) < 0)
 	{
 		free_ph(ph, data.nb_of_ph);
@@ -89,16 +103,10 @@ int	main(void)
 	while (i < data.nb_of_ph)
 	{
 		pthread_create(&thread[i], NULL, &task, ph[i]);
-		pthread_mutex_lock(&ph[i]->rigth->lock);
-		pthread_mutex_lock(&ph[i]->left->lock);
+		pthread_mutex_unlock(&ph[i]->rigth->lock);
+		pthread_mutex_unlock(&ph[i]->left->lock);
 		i++;
 	}
-	i = 0;
-	get_time();
-	while (i < data.nb_of_ph)
-	{
-		pthread_join(thread[i], NULL);
-		i++;
-	}
+	start_ph(thread, &data);
 	free_ph(ph, data.nb_of_ph);
 }

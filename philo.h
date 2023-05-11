@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/09 17:46:16 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:31:51 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 
 # define DIE "is dead 💀"
-# define EAT "is eating🍝"
+# define EAT "is eating 🍝"
 # define TAKE "took fork🍴"
 # define SLEEP "is sleeping 💤"
 # define THINK "is thinking 🤔"
@@ -29,24 +29,17 @@ typedef unsigned long long	t_time;
 
 //sizeof(t_philo)
 
-t_time	get_time(void);
-void	*task(void *in);
-void	*re_ptr(void *ptr);
-void	*ft_free(void *ptr);
-void	ft_bzero(void *ptr, size_t size);
-void	*ft_calloc(size_t count, size_t size);
-
 typedef struct s_data
 {
-	int					i;
-	int					is_dead;
-	int					nb_of_ph;
-	int					meal_need;
-	t_time				eat;
-	t_time				ttd;
-	t_time				sleep;
-	t_time				thinks;
-	pthread_mutex_t		lock;
+	int				i;
+	int				is_dead;
+	int				nb_of_ph;
+	int				meal_need;
+	t_time			eat;
+	t_time			ttd;
+	t_time			sleep;
+	t_time			thinks;
+	pthread_mutex_t	lock;
 
 }	t_data;
 
@@ -67,6 +60,15 @@ typedef struct s_philo
 	t_fork	*rigth;
 	t_time	last_meal;
 }	t_philo;
+
+t_time	get_time(void);
+void	*task(void *in);
+void	*re_ptr(void *ptr);
+void	*ft_free(void *ptr);
+void	*rt_ptr(void *ptr);
+void	ft_bzero(void *ptr, size_t size);
+void	*ft_calloc(size_t count, size_t size);
+void	start_data(t_data *data);
 
 #endif
 

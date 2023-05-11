@@ -12,7 +12,7 @@ NAME	=	philo
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -pthread
+CFLAGS	=	-Wall -Werror -Wextra -g -pthread -fsanitize=thread
 RM		=	rm -f
 
 #-fsanitize=thread
@@ -24,7 +24,8 @@ RM		=	rm -f
 # --track-fds=yes
 
 # Sources are all .c files
-SRCS	=	utilse.c\
+SRCS	=	utils.c\
+			utils_ph.c\
 			philo.c\
 			task.c
 

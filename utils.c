@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilse.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 15:47:21 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/09 13:58:38 by anboisve         ###   ########.fr       */
+/*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
+/*   Updated: 2023/05/11 15:11:07 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@ t_time	get_time(void)
 	new = (now.tv_sec * 1000 - start.tv_sec * 1000) + \
 	(now.tv_usec / 1000 - start.tv_usec / 1000);
 	return (new);
-}
-
-void	*re_ptr(void *ptr)
-{
-	static void	*p = NULL;
-
-	if (ptr)
-		p = ptr;
-	return (p);
 }
 
 void	ft_bzero(void *ptr, size_t size)
@@ -60,4 +51,16 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(new, count * size);
 	return (new);
+}
+
+void	start_data(t_data *data)
+{
+	data->meal_need = 10;
+	data->nb_of_ph = 10;
+	data->eat = 5000;
+	data->sleep = 2000;
+	data->thinks = 3000;
+	data->ttd = 6000;
+	rt_ptr(data);
+	pthread_mutex_init(&data->lock, NULL);
 }
