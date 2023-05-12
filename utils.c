@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/11 15:11:07 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:51:25 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ void	*ft_calloc(size_t count, size_t size)
 
 void	start_data(t_data *data)
 {
-	data->meal_need = 10;
-	data->nb_of_ph = 10;
-	data->eat = 5000;
-	data->sleep = 2000;
-	data->thinks = 3000;
-	data->ttd = 6000;
+	data->meal_need = 0;
+	data->nb_of_ph = 4;
+	data->eat = 200;
+	data->sleep = 300;
+	data->thinks = 0;
+	data->ttd = 100;
 	rt_ptr(data);
 	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->fork, NULL);
 }

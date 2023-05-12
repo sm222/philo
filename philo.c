@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/11 12:43:40 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:55:08 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	make_ph(t_philo ***ph, t_data *data)
 	int		i;
 	t_philo	**new;
 
-	new = ft_calloc(data->nb_of_ph, sizeof(t_philo *));
+	new = ft_calloc(data->nb_of_ph + 1, sizeof(t_philo *));
 	if (!new)
 		return (-1);
 	i = 0;
@@ -51,7 +51,7 @@ int	make_ph(t_philo ***ph, t_data *data)
 		new[i]->rigth = ft_calloc(1, sizeof(t_fork));
 		if (!new[i]->rigth)
 			return (-3);
-		new[i]->rigth->use = i + 1;
+		new[i]->rigth->use = 0;
 		i++;
 	}
 	link_ph(new, data->nb_of_ph);

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/11 13:31:51 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:13:02 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 # define DIE "is dead 💀"
 # define EAT "is eating 🍝"
-# define TAKE "took fork🍴"
+# define TAKE_R "took fork rigth🍴"
+# define TAKE_L "took fork left 🍴"
 # define SLEEP "is sleeping 💤"
 # define THINK "is thinking 🤔"
 
@@ -40,6 +41,7 @@ typedef struct s_data
 	t_time			sleep;
 	t_time			thinks;
 	pthread_mutex_t	lock;
+	pthread_mutex_t	fork;
 
 }	t_data;
 
