@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/12 12:13:02 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:23:03 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define SLEEP "is sleeping 💤"
 # define THINK "is thinking 🤔"
 
-typedef unsigned long long	t_time;
+typedef long long	t_time;
 
 //sizeof(t_philo)
 
