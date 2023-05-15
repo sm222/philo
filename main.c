@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:29 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/09 17:27:43 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:32:50 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ void	set_data(t_data *data, t_philo **ph, int size)
 {
 	data->eat = 200;
 	data->sleep = 200;
-	data->thinks = 4100;
 	data->ttd = 4000;
-	data->meal_need = 8;
+	data->meal_need = 1;
 	data->i = 0;
 	pthread_mutex_init(&data->lock, NULL);
 	while (size--)

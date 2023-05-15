@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/14 14:23:03 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:29:27 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_data
 	t_time			eat;
 	t_time			ttd;
 	t_time			sleep;
-	t_time			thinks;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	fork;
 
@@ -56,8 +55,8 @@ typedef struct s_philo
 	int		id;
 	int		meal;
 	t_data	*ptr;
-	int		lock;
-	int		time;
+	t_time	tod;
+	t_time	start_t;
 	t_fork	*left;
 	t_fork	*rigth;
 	t_time	last_meal;

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/12 16:55:08 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:35:27 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	link_ph(t_philo **ph, int size)
 	{
 		pthread_mutex_init(&tmp[i]->rigth->lock, NULL);
 		tmp[i + 1]->left = tmp[i]->rigth;
-		pthread_mutex_lock(&tmp[i]->rigth->lock);
 		i++;
 	}
 	pthread_mutex_init(&tmp[i]->rigth->lock, NULL);
-	pthread_mutex_lock(&tmp[i]->rigth->lock);
 	tmp[0]->left = tmp[i]->rigth;
 }
 
@@ -78,7 +76,6 @@ void	start_ph(pthread_t thread[200], t_data *data)
 	int	i;
 
 	i = 0;
-	get_time();
 	while (i < data->nb_of_ph)
 	{
 		pthread_join(thread[i], NULL);
@@ -103,8 +100,6 @@ int	main(void)
 	while (i < data.nb_of_ph)
 	{
 		pthread_create(&thread[i], NULL, &task, ph[i]);
-		pthread_mutex_unlock(&ph[i]->rigth->lock);
-		pthread_mutex_unlock(&ph[i]->left->lock);
 		i++;
 	}
 	start_ph(thread, &data);
