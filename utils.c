@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/15 17:54:13 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:15:48 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,25 @@ void	*ft_calloc(size_t count, size_t size)
 void	start_data(t_data *data)
 {
 	data->meal_need = 0;
-	data->nb_of_ph = 200;
+	data->nb_of_ph = 4;
+	data->ttd = 410;
 	data->eat = 200;
-	data->sleep = 300;
-	data->ttd = 300;
+	data->sleep = 200;
 	rt_ptr(data);
-	pthread_mutex_init(&data->lock, NULL);
-	pthread_mutex_init(&data->fork, NULL);
 }
+
+/*
+Do not test with more than 200 philosophers.
+- Do not test with time_to_die or time_to_eat or time_to_sleep set
+to values lower than 60 ms.
+	- Test 5 800 200 200. No philosopher should die.
+	- Test 5 800 200 200 7. No philosopher should die and the simulation
+should stop when every philosopher has eaten at least 7 times.
+- - Test 4 410 200 200. No philosopher should die.
+	- Test 4 310 200 100. One philosopher should die.
+	- Test with 2 philosophers and check the different times: a death
+delayed by more than 10 ms is unacceptable.
+- Test with any values of your choice to verify all the requirements.
+Ensure philosophers die at the right time, that they don't steal
+forks, and so forth.
+*/

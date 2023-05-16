@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/15 15:29:27 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:51:19 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define DIE "is dead 💀"
+# define DIE4 "is dead 💀SLEEP"
+# define DIE3 "is dead 💀3"
+# define DIE2 "is dead 💀TINK"
+# define DIE1 "is dead 💀EAT"
 # define EAT "is eating 🍝"
 # define TAKE_R "took fork rigth🍴"
 # define TAKE_L "took fork left 🍴"
@@ -39,14 +42,13 @@ typedef struct s_data
 	t_time			eat;
 	t_time			ttd;
 	t_time			sleep;
-	pthread_mutex_t	lock;
-	pthread_mutex_t	fork;
+	pthread_mutex_t	*lock;
 
 }	t_data;
 
 typedef struct s_fork
 {
-	pthread_mutex_t	lock;
+	pthread_mutex_t	*lock;
 	int				use;
 }	t_fork;
 
@@ -55,8 +57,6 @@ typedef struct s_philo
 	int		id;
 	int		meal;
 	t_data	*ptr;
-	t_time	tod;
-	t_time	start_t;
 	t_fork	*left;
 	t_fork	*rigth;
 	t_time	last_meal;
@@ -70,6 +70,7 @@ void	*rt_ptr(void *ptr);
 void	ft_bzero(void *ptr, size_t size);
 void	*ft_calloc(size_t count, size_t size);
 void	start_data(t_data *data);
+void	close_mutex(t_philo *philo);
 
 #endif
 
