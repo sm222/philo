@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/18 14:56:36 by anboisve         ###   ########.fr       */
+/*   Created: 2023/05/18 11:06:11 by anboisve          #+#    #+#             */
+/*   Updated: 2023/05/18 14:48:40 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	link_ph(t_philo **ph, int size)
-{
-	t_philo	**tmp;
-	int		i;
-
-	i = 0;
-	tmp = ph;
-	while (i < size - 1)
-	{
-		pthread_mutex_init(tmp[i]->rigth->lock, NULL);
-		tmp[i + 1]->left = tmp[i]->rigth;
-		i++;
-	}
-	pthread_mutex_init(tmp[i]->rigth->lock, NULL);
-	tmp[0]->left = tmp[i]->rigth;
-}
-
-void	set_data(t_philo **ph, t_data *data, int i)
-{
-	ph[i]->id = i + 1;
-	ph[i]->meal = 0;
-	ft_memcpy(data, &ph[i]->info, sizeof(t_data));
-}
-
+/*
 int	make_ph(t_philo ***ph, t_data *data)
 {
 	int		i;
@@ -64,39 +41,26 @@ int	make_ph(t_philo ***ph, t_data *data)
 	*ph = new;
 	return (1);
 }
+*/
 
-void	start_ph(pthread_t **thread, t_data *data)
+int	make_pthread(pthread_t ***thread, int size)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->nb_of_ph)
-	{
-		pthread_join(*thread[i], NULL);
-		i++;
-	}
-}
-
-int	main(void)
-{
-	pthread_t	**thread;
-	t_philo		**ph;
-	t_data		data;
 	int			i;
+	pthread_t	**new;
 
-	start_data(&data);
-	make_pthread(&thread, data.nb_of_ph);
-	if (make_ph(&ph, &data) < 0)
-	{
-		free_ph(ph, data.nb_of_ph);
-		return (printf("malloc fail\n"));
-	}
 	i = 0;
-	while (i < data.nb_of_ph)
+	if (size <= 0)
+		return (-1);
+	new = ft_calloc(size + 1, sizeof(pthread_t *));
+	if (!new)
+		return (-2);
+	while (i < size)
 	{
-		pthread_create(thread[i], NULL, &task, ph[i]);
+		new[i] = ft_calloc(1, sizeof(pthread_t));
+		if (!new[i])
+			return (-2);
 		i++;
 	}
-	start_ph(thread, &data);
-	free_ph(ph, data.nb_of_ph);
+	*thread = new;
+	return (1);
 }

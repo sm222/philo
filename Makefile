@@ -27,7 +27,8 @@ RM		=	rm -f
 SRCS	=	utils.c\
 			utils_ph.c\
 			philo.c\
-			task.c
+			task.c\
+			main_utils.c
 
 OBJS	=	$(SRCS:.c=.o)
 

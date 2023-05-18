@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/16 13:51:19 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:44:24 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,15 @@ typedef struct s_philo
 {
 	int		id;
 	int		meal;
-	t_data	*ptr;
+	t_data	info;
 	t_fork	*left;
 	t_fork	*rigth;
 	t_time	last_meal;
 }	t_philo;
 
+int		make_pthread(pthread_t ***thread, int size);
+void	print_info(char *s, int id, t_time t);
+void	ft_memcpy(void *src, void *dest, size_t size);
 t_time	get_time(void);
 void	*task(void *in);
 void	*re_ptr(void *ptr);
@@ -71,6 +74,7 @@ void	ft_bzero(void *ptr, size_t size);
 void	*ft_calloc(size_t count, size_t size);
 void	start_data(t_data *data);
 void	close_mutex(t_philo *philo);
+void	free_ph(t_philo **ph, int size);
 
 #endif
 
