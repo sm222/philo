@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:32 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 12:22:45 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:37:46 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	give_back_fork(t_philo *philo)
 	t_data	*tmp;
 
 	tmp = rt_ptr(NULL);
+	close_mutex(philo);
 	pthread_mutex_lock(tmp->lock);
 	philo->left->use = 0;
 	philo->rigth->use = 0;

@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 16:37:20 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:46:56 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,14 @@ int	main(int ac, char **av)
 
 	if (start_data(&data, ac, av) < 0)
 		return (1);
-	make_pthread(&thread, data.nb_of_ph);
-	if (make_ph(&ph, &data) < 0)
+	if (make_ph(&ph, &data) < 0 || make_pthread(&thread, data.nb_of_ph) < 0)
 	{
 		free_ph(ph, data.nb_of_ph);
-		return (printf("malloc fail\n"));
+		return (printf(MFAIL));
 	}
-	i = 0;
-	while (i < data.nb_of_ph)
-	{
+	i = -1;
+	while (++i < data.nb_of_ph)
 		pthread_create(thread[i], NULL, &task, ph[i]);
-		i++;
-	}
 	start_ph(thread, &data);
 	free_ph(ph, data.nb_of_ph);
 }

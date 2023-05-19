@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:00:36 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:54:39 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ void	start_data(t_data *data)
 
 int	start_data(t_data *data, int ac, char **av)
 {
-	printf("%d\n", ac);
-	if (ac < 4)
+	if (ac < 4 || ac > 6)
 	{
 		printf(MISS_ARGS);
 		return (-1);
@@ -95,7 +94,10 @@ int	start_data(t_data *data, int ac, char **av)
 	data->ttd = get_arg(av[2]);
 	data->eat = get_arg(av[3]);
 	data->sleep = get_arg(av[4]);
-	data->meal_need = 0;
+	if (ac > 4)
+		data->meal_need = get_arg(av[5]);
+	else
+		data->meal_need = 0;
 	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->lock)
 	{

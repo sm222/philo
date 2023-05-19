@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 16:30:22 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:42:31 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,22 @@ typedef struct s_philo
 	t_time	last_meal;
 }	t_philo;
 
-int		take_ph_nb(char *s);
-int		get_arg(char *s);
-int		make_pthread(pthread_t ***thread, int size);
-void	print_info(char *s, int id, t_time t);
-void	ft_memcpy(void *src, void *dest, size_t size);
 t_time	get_time(void);
-void	*rt_ptr(void *ptr);
 void	*task(void *in);
+int		get_arg(char *s);
+void	*rt_ptr(void *ptr);
 void	*ft_free(void *ptr);
+int		take_ph_nb(char *s);
+int		look_fork(t_philo *philo);
+void	close_mutex(t_philo *philo);
+void	give_back_fork(t_philo *philo);
+void	free_ph(t_philo **ph, int size);
 void	ft_bzero(void *ptr, size_t size);
+void	print_info(char *s, int id, t_time t);
 void	*ft_calloc(size_t count, size_t size);
 int		start_data(t_data *data, int ac, char **av);
-void	close_mutex(t_philo *philo);
-void	free_ph(t_philo **ph, int size);
-int		look_fork(t_philo *philo);
-void	give_back_fork(t_philo *philo);
+int		make_pthread(pthread_t ***thread, int size);
+void	ft_memcpy(void *src, void *dest, size_t size);
 
 #endif
 

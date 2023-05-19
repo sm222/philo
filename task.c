@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:30:39 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:19:43 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:37:34 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,11 @@ void	*task(void *in)
 	while (philo->meal <= philo->info.meal_need)
 	{
 		if (think(philo))
-		{
-			print_info(DIE, philo->id, get_time());
 			break ;
-		}
 		if (eat(philo, &philo->info))
 			break ;
 		if (philo->info.meal_need != 0)
 			philo->meal++;
-		close_mutex(philo);
 		if (ph_sleep(philo, &philo->info))
 			break ;
 	}
