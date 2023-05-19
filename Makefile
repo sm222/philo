@@ -12,7 +12,7 @@ NAME	=	philo
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -pthread -fsanitize=thread
+CFLAGS	=	-Wall -Werror -Wextra -g -pthread
 RM		=	rm -f
 
 #-fsanitize=thread
@@ -28,7 +28,8 @@ SRCS	=	utils.c\
 			utils_ph.c\
 			philo.c\
 			task.c\
-			main_utils.c
+			main_utils.c\
+			verif.c
 
 OBJS	=	$(SRCS:.c=.o)
 

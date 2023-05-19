@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:32 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/18 10:46:22 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:22:45 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	*rt_ptr(void *ptr)
 
 void	close_mutex(t_philo *philo)
 {
-	print_info("drop fork", philo->id, get_time());
 	pthread_mutex_unlock(philo->rigth->lock);
 	pthread_mutex_unlock(philo->left->lock);
 }
@@ -42,12 +41,32 @@ void	free_ph(t_philo **ph, int size)
 	ft_free(ph);
 }
 
-void	ft_memcpy(void *src, void *dest, size_t size)
+int	look_fork(t_philo *philo)
 {
-	if (!src || !dest)
-		return ;
-	while (size--)
+	t_data	*tmp;
+	int		boo;
+
+	tmp = rt_ptr(NULL);
+	pthread_mutex_lock(tmp->lock);
+	if (philo->left->use == 0 && philo->rigth->use == 0)
 	{
-		((unsigned char *)dest)[size] = ((unsigned char *)src)[size];
+		boo = 1;
+		philo->left->use = 1;
+		philo->rigth->use = 1;
 	}
+	else
+		boo = 0;
+	pthread_mutex_unlock(tmp->lock);
+	return (boo);
+}
+
+void	give_back_fork(t_philo *philo)
+{
+	t_data	*tmp;
+
+	tmp = rt_ptr(NULL);
+	pthread_mutex_lock(tmp->lock);
+	philo->left->use = 0;
+	philo->rigth->use = 0;
+	pthread_mutex_unlock(tmp->lock);
 }

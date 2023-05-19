@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/18 16:14:56 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:00:36 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,58 @@ void	*ft_calloc(size_t count, size_t size)
 	return (new);
 }
 
+/*
 void	start_data(t_data *data)
 {
 	data->meal_need = 0;
-	data->nb_of_ph = 3;
+	data->nb_of_ph = 4;
+	data->ttd = 310;
+	data->eat = 200;
+	data->sleep = 100;
+	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	pthread_mutex_init(data->lock, NULL);
+	rt_ptr(data);
+}
+*/
+
+/* good for now
+void	start_data(t_data *data)
+{
+	data->meal_need = 0;
+	data->nb_of_ph = 4;
 	data->ttd = 410;
 	data->eat = 200;
 	data->sleep = 200;
 	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
 	pthread_mutex_init(data->lock, NULL);
 	rt_ptr(data);
+}
+*/
+
+int	start_data(t_data *data, int ac, char **av)
+{
+	printf("%d\n", ac);
+	if (ac < 4)
+	{
+		printf(MISS_ARGS);
+		return (-1);
+	}
+	data->nb_of_ph = take_ph_nb(av[1]);
+	if (!data->nb_of_ph)
+		return (-1);
+	data->ttd = get_arg(av[2]);
+	data->eat = get_arg(av[3]);
+	data->sleep = get_arg(av[4]);
+	data->meal_need = 0;
+	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->lock)
+	{
+		printf(MFAIL);
+		return (-2);
+	}
+	pthread_mutex_init(data->lock, NULL);
+	rt_ptr(data);
+	return (1);
 }
 
 /*

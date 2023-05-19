@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/18 14:56:36 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:37:20 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	make_ph(t_philo ***ph, t_data *data)
 	i = 0;
 	while (i < data->nb_of_ph)
 	{
-		printf("making ph %d\n", i);
 		new[i] = ft_calloc(1, sizeof(t_philo));
 		if (!new[i])
 			return (-2);
@@ -77,14 +76,15 @@ void	start_ph(pthread_t **thread, t_data *data)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	pthread_t	**thread;
 	t_philo		**ph;
 	t_data		data;
 	int			i;
 
-	start_data(&data);
+	if (start_data(&data, ac, av) < 0)
+		return (1);
 	make_pthread(&thread, data.nb_of_ph);
 	if (make_ph(&ph, &data) < 0)
 	{
