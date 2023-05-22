@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:42:31 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:19:16 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 
 # define DIE "is dead   💀"
 # define EAT "is eating 🍝"
-# define TAKE_R "took fork rigth🍴"
-# define TAKE_L "took fork left 🍴"
 # define SLEEP "is sleeping 💤"
 # define THINK "is thinking 🤔"
+# define TAKE_L "took fork left 🍴"
+# define TAKE_R "took fork rigth🍴"
+# define LOOP_TIME 1000
 
 # define MFAIL "Malloc fail\n"
 # define MISS_ARGS "not rigth amont of args\n"
@@ -35,15 +36,15 @@ typedef long long	t_time;
 
 typedef struct s_data
 {
+	t_time			eat;
+	t_time			ttd;
+	t_time			sleep;
+	pthread_mutex_t	*msg;
+	pthread_mutex_t	*lock;
 	int				i;
 	int				is_dead;
 	int				nb_of_ph;
 	int				meal_need;
-	t_time			eat;
-	t_time			ttd;
-	t_time			sleep;
-	pthread_mutex_t	*lock;
-
 }	t_data;
 
 typedef struct s_fork
@@ -70,14 +71,15 @@ void	*ft_free(void *ptr);
 int		take_ph_nb(char *s);
 int		look_fork(t_philo *philo);
 void	close_mutex(t_philo *philo);
+int		print_info(char *s, int id);
 void	give_back_fork(t_philo *philo);
-void	free_ph(t_philo **ph, int size);
 void	ft_bzero(void *ptr, size_t size);
-void	print_info(char *s, int id, t_time t);
+void	ft_kill(t_philo *philo, t_data *tmp);
 void	*ft_calloc(size_t count, size_t size);
 int		start_data(t_data *data, int ac, char **av);
 int		make_pthread(pthread_t ***thread, int size);
 void	ft_memcpy(void *src, void *dest, size_t size);
+void	free_ph(t_philo **ph, pthread_t	**thread, t_data *data, int size);
 
 #endif
 

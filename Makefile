@@ -21,15 +21,16 @@ RM		=	rm -f
 #-Wall -Werror -Wextra -FD_CLOEXEC
 #-fsanitize=address
 #--recurse-submodules
-# --track-fds=yes
 
 # Sources are all .c files
-SRCS	=	utils.c\
-			utils_ph.c\
-			philo.c\
+SRCS	=	\
 			task.c\
+			utils.c\
+			philo.c\
+			verif.c\
+			ft_free.c\
+			utils_ph.c\
 			main_utils.c\
-			verif.c
 
 OBJS	=	$(SRCS:.c=.o)
 

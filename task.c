@@ -6,15 +6,29 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:30:39 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:37:34 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:58:11 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_info(char *s, int id, t_time t)
+int	print_info(char *s, int id)
 {
-	printf("%5lld %3d %10s\n", t, id, s);
+	t_data	*tmp;
+	int		err;
+
+	err = 0;
+	tmp = (t_data *)rt_ptr(NULL);
+	pthread_mutex_lock(tmp->msg);
+	if (tmp->is_dead < 1)
+	{
+		printf("%5lld %3d %10s\n", get_time(), id, s);
+		err = 0;
+	}
+	else
+		err = 1;
+	pthread_mutex_unlock(tmp->msg);
+	return (err);
 }
 
 int	eat(t_philo *philo, t_data *data)
@@ -23,15 +37,16 @@ int	eat(t_philo *philo, t_data *data)
 
 	eat_t = data->eat + get_time();
 	philo->last_meal = data->ttd + get_time();
-	print_info(EAT, philo->id, get_time());
+	if (print_info(EAT, philo->id))
+		return (1);
 	while (get_time() < eat_t)
 	{
 		if (philo->last_meal < get_time())
 		{
-			print_info(DIE, philo->id, get_time());
+			ft_kill(philo, rt_ptr(NULL));
 			return (1);
 		}
-		usleep(10);
+		usleep(LOOP_TIME);
 	}
 	give_back_fork(philo);
 	return (0);
@@ -39,30 +54,23 @@ int	eat(t_philo *philo, t_data *data)
 
 int	think(t_philo *philo)
 {
-	print_info(THINK, philo->id, get_time());
+	if (print_info(THINK, philo->id))
+		return (1);
 	while (1)
 	{
-		usleep(10);
 		if (philo->last_meal < get_time())
 		{
-			print_info(DIE, philo->id, get_time());
+			ft_kill(philo, rt_ptr(NULL));
 			return (1);
 		}
 		if (look_fork(philo) == 1)
 			break ;
+		usleep(LOOP_TIME);
 	}
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->left->lock);
-		pthread_mutex_lock(philo->rigth->lock);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->rigth->lock);
-		pthread_mutex_lock(philo->left->lock);
-	}
-	print_info(TAKE_R, philo->id, get_time());
-	print_info(TAKE_L, philo->id, get_time());
+	pthread_mutex_lock(philo->left->lock);
+	pthread_mutex_lock(philo->rigth->lock);
+	if (print_info(TAKE_R, philo->id) || print_info(TAKE_L, philo->id))
+		return (1);
 	return (0);
 }
 
@@ -75,12 +83,13 @@ int	ph_sleep(t_philo *philo, t_data *data)
 	{
 		if (philo->last_meal < get_time())
 		{
-			print_info(DIE, philo->id, get_time());
+			ft_kill(philo, rt_ptr(NULL));
 			return (1);
 		}
-		usleep(10);
+		usleep(LOOP_TIME);
 	}
-	print_info(SLEEP, philo->id, get_time());
+	if (print_info(SLEEP, philo->id))
+		return (1);
 	return (0);
 }
 
@@ -89,10 +98,10 @@ void	*task(void *in)
 	t_philo	*philo;
 
 	philo = (t_philo *)in;
-	if (philo->id % 2 == 0)
-		usleep(100);
+	if (philo->id % 2 != 0)
+		usleep(5000);
 	philo->last_meal = philo->info.ttd;
-	while (philo->meal <= philo->info.meal_need)
+	while (philo->meal < philo->info.meal_need || !philo->info.meal_need)
 	{
 		if (think(philo))
 			break ;

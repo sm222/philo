@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:54:39 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:29:01 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ void	ft_bzero(void *ptr, size_t size)
 		((char *)ptr)[size] = 0;
 }
 
-void	*ft_free(void *ptr)
-{
-	if (ptr)
-		free(ptr);
-	return (NULL);
-}
-
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*new;
@@ -53,41 +46,10 @@ void	*ft_calloc(size_t count, size_t size)
 	return (new);
 }
 
-/*
-void	start_data(t_data *data)
-{
-	data->meal_need = 0;
-	data->nb_of_ph = 4;
-	data->ttd = 310;
-	data->eat = 200;
-	data->sleep = 100;
-	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
-	pthread_mutex_init(data->lock, NULL);
-	rt_ptr(data);
-}
-*/
-
-/* good for now
-void	start_data(t_data *data)
-{
-	data->meal_need = 0;
-	data->nb_of_ph = 4;
-	data->ttd = 410;
-	data->eat = 200;
-	data->sleep = 200;
-	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
-	pthread_mutex_init(data->lock, NULL);
-	rt_ptr(data);
-}
-*/
-
 int	start_data(t_data *data, int ac, char **av)
 {
 	if (ac < 4 || ac > 6)
-	{
-		printf(MISS_ARGS);
-		return (-1);
-	}
+		return (printf(MISS_ARGS), -1);
 	data->nb_of_ph = take_ph_nb(av[1]);
 	if (!data->nb_of_ph)
 		return (-1);
@@ -99,12 +61,14 @@ int	start_data(t_data *data, int ac, char **av)
 	else
 		data->meal_need = 0;
 	data->lock = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->lock)
+	data->msg = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->lock || !data->msg)
 	{
 		printf(MFAIL);
 		return (-2);
 	}
 	pthread_mutex_init(data->lock, NULL);
+	pthread_mutex_init(data->msg, NULL);
 	rt_ptr(data);
 	return (1);
 }

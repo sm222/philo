@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/19 17:46:56 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:06:36 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	link_ph(t_philo **ph, int size)
 		i++;
 	}
 	pthread_mutex_init(tmp[i]->rigth->lock, NULL);
-	tmp[0]->left = tmp[i]->rigth;
+	if (size > 1)
+		tmp[0]->left = tmp[i]->rigth;
 }
 
 void	set_data(t_philo **ph, t_data *data, int i)
@@ -83,16 +84,18 @@ int	main(int ac, char **av)
 	t_data		data;
 	int			i;
 
+	thread = NULL;
+	ph = NULL;
 	if (start_data(&data, ac, av) < 0)
 		return (1);
 	if (make_ph(&ph, &data) < 0 || make_pthread(&thread, data.nb_of_ph) < 0)
 	{
-		free_ph(ph, data.nb_of_ph);
+		free_ph(ph, thread, &data, data.nb_of_ph);
 		return (printf(MFAIL));
 	}
 	i = -1;
 	while (++i < data.nb_of_ph)
 		pthread_create(thread[i], NULL, &task, ph[i]);
 	start_ph(thread, &data);
-	free_ph(ph, data.nb_of_ph);
+	free_ph(ph, thread, &data, data.nb_of_ph);
 }
