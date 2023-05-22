@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:30:39 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 13:58:11 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:26:42 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	print_info(char *s, int id)
 	int		err;
 
 	err = 0;
-	tmp = (t_data *)rt_ptr(NULL);
+	tmp = rt_ptr(NULL);
 	pthread_mutex_lock(tmp->msg);
 	if (tmp->is_dead < 1)
 	{
@@ -34,14 +34,17 @@ int	print_info(char *s, int id)
 int	eat(t_philo *philo, t_data *data)
 {
 	t_time	eat_t;
+	t_time	t;
 
 	eat_t = data->eat + get_time();
 	philo->last_meal = data->ttd + get_time();
+	t = get_time();
 	if (print_info(EAT, philo->id))
 		return (1);
-	while (get_time() < eat_t)
+	while (t < eat_t)
 	{
-		if (philo->last_meal < get_time())
+		t = get_time();
+		if (philo->last_meal < t)
 		{
 			ft_kill(philo, rt_ptr(NULL));
 			return (1);
@@ -65,7 +68,7 @@ int	think(t_philo *philo)
 		}
 		if (look_fork(philo) == 1)
 			break ;
-		usleep(LOOP_TIME);
+		usleep(10);
 	}
 	pthread_mutex_lock(philo->left->lock);
 	pthread_mutex_lock(philo->rigth->lock);
@@ -77,11 +80,14 @@ int	think(t_philo *philo)
 int	ph_sleep(t_philo *philo, t_data *data)
 {
 	t_time	sleep_t;
+	t_time	t;
 
-	sleep_t = data->sleep + get_time();
-	while (get_time() < sleep_t)
+	t = get_time();
+	sleep_t = data->sleep + t;
+	while (t <= sleep_t)
 	{
-		if (philo->last_meal < get_time())
+		t = get_time();
+		if (philo->last_meal < t)
 		{
 			ft_kill(philo, rt_ptr(NULL));
 			return (1);

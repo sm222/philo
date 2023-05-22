@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:32 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 13:05:38 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:17:13 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	close_mutex(t_philo *philo)
 {
 	t_data	*tmp;
 
-	tmp = (t_data *)rt_ptr(NULL);
+	tmp = rt_ptr(NULL);
 	if (philo->left)
 		pthread_mutex_unlock(philo->left->lock);
 	pthread_mutex_unlock(philo->rigth->lock);

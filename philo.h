@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 14:19:16 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:13:16 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_data
 	t_time			sleep;
 	pthread_mutex_t	*msg;
 	pthread_mutex_t	*lock;
-	int				i;
 	int				is_dead;
 	int				nb_of_ph;
 	int				meal_need;
