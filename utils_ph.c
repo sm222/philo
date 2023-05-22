@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:32 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 17:17:13 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:34:33 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ void	close_mutex(t_philo *philo)
 int	look_fork(t_philo *philo)
 {
 	t_data	*tmp;
-	int		boo;
+	int		use;
 
 	tmp = rt_ptr(NULL);
 	pthread_mutex_lock(tmp->lock);
 	if (!philo->left)
-		boo = 0;
+		use = 0;
 	else if (philo->left->use == 0 && philo->rigth->use == 0)
 	{
-		boo = 1;
+		use = 1;
 		philo->left->use = 1;
 		philo->rigth->use = 1;
 	}
 	else
-		boo = 0;
+		use = 0;
 	pthread_mutex_unlock(tmp->lock);
-	return (boo);
+	return (use);
 }
 
 void	give_back_fork(t_philo *philo)

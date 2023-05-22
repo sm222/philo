@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 10:29:01 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:57:00 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 int	start_data(t_data *data, int ac, char **av)
 {
-	if (ac < 4 || ac > 6)
+	if (ac < 5 || ac > 6)
 		return (printf(MISS_ARGS), -1);
 	data->nb_of_ph = take_ph_nb(av[1]);
 	if (!data->nb_of_ph)
@@ -56,7 +56,9 @@ int	start_data(t_data *data, int ac, char **av)
 	data->ttd = get_arg(av[2]);
 	data->eat = get_arg(av[3]);
 	data->sleep = get_arg(av[4]);
-	if (ac > 4)
+	if (data->ttd == 0 || data->eat == 0|| data->sleep == 0)
+		return (-3);
+	if (ac > 5)
 		data->meal_need = get_arg(av[5]);
 	else
 		data->meal_need = 0;

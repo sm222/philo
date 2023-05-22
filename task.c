@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:30:39 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 17:26:42 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:31:23 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	*task(void *in)
 	t_philo	*philo;
 
 	philo = (t_philo *)in;
-	if (philo->id % 2 != 0)
-		usleep(5000);
 	philo->last_meal = philo->info.ttd;
 	while (philo->meal < philo->info.meal_need || !philo->info.meal_need)
 	{
