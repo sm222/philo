@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:00:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 17:56:23 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:06:27 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	ft_is_nb(char *s)
 	while (s[i])
 	{
 		if (s[i] >= '0' && s[i] <= '9')
-			return (1);
-		else
 			i++;
+		else
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 size_t	ft_strlen(const char *s)
@@ -69,7 +69,7 @@ int	take_ph_nb(char *s)
 		return (0);
 	nb = ft_atol(s);
 	if (ft_strlen(s) > 3 || (nb > 200 || nb < 1))
-		return (0);
+		return (-1);
 	return (nb);
 }
 
@@ -80,7 +80,7 @@ int	get_arg(char *s)
 
 	len = ft_strlen(s);
 	nb = ft_atol(s);
-	if (len > 10 || nb > INT32_MAX || !ft_is_nb(s))
-		return (0);
+	if (len > 10 || nb > INT32_MAX || ft_is_nb(s) < 1)
+		return (-1);
 	return (nb);
 }

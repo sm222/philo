@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:23:24 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 17:57:00 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:55:04 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	start_data(t_data *data, int ac, char **av)
 	data->ttd = get_arg(av[2]);
 	data->eat = get_arg(av[3]);
 	data->sleep = get_arg(av[4]);
-	if (data->ttd == 0 || data->eat == 0|| data->sleep == 0)
+	if (data->ttd < 0 || data->eat < 0 || data->sleep < 0)
 		return (-3);
 	if (ac > 5)
 		data->meal_need = get_arg(av[5]);
