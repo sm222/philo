@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:00:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/23 11:06:27 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:08:32 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	get_arg(char *s)
 
 	len = ft_strlen(s);
 	nb = ft_atol(s);
-	if (len > 10 || nb > INT32_MAX || ft_is_nb(s) < 1)
+	if (len > 10 || nb > INT32_MAX || nb < 0 || ft_is_nb(s) < 1)
 		return (-1);
 	return (nb);
 }

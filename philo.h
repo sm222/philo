@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 17:13:16 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:58:33 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define DIE "is dead   💀"
-# define EAT "is eating 🍝"
-# define SLEEP "is sleeping 💤"
-# define THINK "is thinking 🤔"
-# define TAKE_L "took fork left 🍴"
-# define TAKE_R "took fork rigth🍴"
+# define DIE "is dead"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define TAKE_L "has taken a fork"
+# define TAKE_R "has taken a fork"
 # define LOOP_TIME 1000
-
 # define MFAIL "Malloc fail\n"
 # define MISS_ARGS "not rigth amont of args\n"
 
@@ -70,7 +69,7 @@ void	*ft_free(void *ptr);
 int		take_ph_nb(char *s);
 int		look_fork(t_philo *philo);
 void	close_mutex(t_philo *philo);
-int		print_info(char *s, int id);
+short	print_info(char *s, int id);
 void	give_back_fork(t_philo *philo);
 void	ft_bzero(void *ptr, size_t size);
 void	ft_kill(t_philo *philo, t_data *tmp);

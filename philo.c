@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/22 14:06:36 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:11:23 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int ac, char **av)
 	ph = NULL;
 	if (start_data(&data, ac, av) < 0)
 		return (1);
-	if (make_ph(&ph, &data) < 0 || make_pthread(&thread, data.nb_of_ph) < 0)
+	if (make_ph(&ph, &data) < 1 || make_pthread(&thread, data.nb_of_ph) < 0)
 	{
 		free_ph(ph, thread, &data, data.nb_of_ph);
 		return (printf(MFAIL));
