@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:28:32 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/23 10:11:49 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:56:56 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_kill(t_philo *philo, t_data *tmp)
 {
 	pthread_mutex_lock(tmp->msg);
 	if (tmp->is_dead == 0)
-		printf("%5lld %3d %10s\n", get_time(), philo->id, DIE);
+		printf("%lld %d %s\n", get_time(), philo->id, DIE);
 	tmp->is_dead++;
 	pthread_mutex_unlock(tmp->msg);
 }

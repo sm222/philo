@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/23 14:58:33 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:13:00 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define DIE "is dead"
+# define DIE "died"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
@@ -30,8 +30,6 @@
 # define MISS_ARGS "not rigth amont of args\n"
 
 typedef long long	t_time;
-
-//sizeof(t_philo)
 
 typedef struct s_data
 {
