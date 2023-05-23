@@ -6,7 +6,7 @@
 /*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/23 17:13:00 by anboisve         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:36:04 by anboisve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define LOOP_TIME 1000
 # define MFAIL "Malloc fail\n"
 # define MISS_ARGS "not rigth amont of args\n"
+# define BAD_ARGS "bad args\n"
 
 typedef long long	t_time;
 
