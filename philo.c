@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anboisve <anboisve@student.42quebec.com    +#+  +:+       +#+        */
+/*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 08:38:44 by anboisve          #+#    #+#             */
-/*   Updated: 2023/05/23 13:11:23 by anboisve         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:45:39 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	link_ph(t_philo **ph, int size)
 
 void	set_data(t_philo **ph, t_data *data, int i)
 {
+	ft_bzero(&ph[i]->info, sizeof(*data));
 	ph[i]->id = i + 1;
 	ph[i]->meal = 0;
 	ft_memcpy(data, &ph[i]->info, sizeof(t_data));
@@ -86,6 +87,7 @@ int	main(int ac, char **av)
 
 	thread = NULL;
 	ph = NULL;
+	ft_bzero(&data, sizeof(data));
 	if (start_data(&data, ac, av) < 0)
 		return (1);
 	if (make_ph(&ph, &data) < 1 || make_pthread(&thread, data.nb_of_ph) < 0)

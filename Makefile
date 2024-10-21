@@ -12,7 +12,7 @@ NAME	=	philo
 
 # Compiler and flags
 CC		=	gcc
-CFLAGS	=	-Wall -Werror -Wextra -g -pthread
+CFLAGS	=	-Wall -Werror -Wextra -pthread -g
 RM		=	rm -f
 
 #-fsanitize=thread
