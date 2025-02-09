@@ -6,7 +6,7 @@
 /*   By: antoine <antoine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 14:06:48 by anboisve          #+#    #+#             */
-/*   Updated: 2024/08/08 08:22:05 by antoine          ###   ########.fr       */
+/*   Updated: 2025/02/09 17:39:44 by antoine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define TAKE_R "has taken a fork"
 # define LOOP_TIME 1000
 # define MFAIL "Malloc fail\n"
-# define MISS_ARGS "not rigth amont of args\n"
+# define MISS_ARGS "not right amount of args\n"
 # define BAD_ARGS "bad args\n"
 
 typedef long long	t_time;
